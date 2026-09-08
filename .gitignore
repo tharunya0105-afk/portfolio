@@ -1,0 +1,12 @@
+node_modules/
+dist/
+*.local
+
+# environment & secrets
+.env
+.env.*
+*.pem
+*.key
+
+# logs
+*.log

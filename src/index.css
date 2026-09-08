@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #050d1a;
+  --color-navy-900: #08182b;
+  --color-navy-850: #0a1e35;
+  --color-navy-800: #0c2038;
+  --color-navy-700: #12304f;
+  --color-navy-600: #1a4066;
+  --color-ink: #e8f2ff;
+  --color-ink-dim: #9fb4cc;
+  --color-ink-faint: #5c7291;
+  --color-cyan: #6fe3ff;
+  --color-cyan-dim: #3fa8c9;
+  --color-amber: #ffb020;
+  --color-orange: #ff6b2c;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ---------- base ---------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-navy-950);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-navy-950);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-navy-600) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-navy-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-600);
+  border: 2px solid var(--color-navy-950);
+  border-radius: 8px;
+}
+
+@media (pointer: fine) {
+  body.cursor-custom,
+  body.cursor-custom a,
+  body.cursor-custom button,
+  body.cursor-custom input,
+  body.cursor-custom select,
+  body.cursor-custom label {
+    cursor: none;
+  }
+}
+
+/* ---------- blueprint grid layers ---------- */
+
+.bp-grid {
+  background-image:
+    linear-gradient(to right, rgba(111, 227, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(111, 227, 255, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.bp-grid-major {
+  background-image:
+    linear-gradient(to right, rgba(140, 214, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(140, 214, 255, 0.09) 1px, transparent 1px);
+  background-size: 220px 220px;
+}
+
+.bp-grid-dense {
+  background-image:
+    linear-gradient(to right, rgba(111, 227, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(111, 227, 255, 0.07) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* ---------- shared bits ---------- */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.stamp {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  border: 1.5px solid currentColor;
+  border-radius: 4px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.62rem;
+  transform: rotate(-6deg);
+  display: inline-block;
+  color: var(--color-orange);
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px rgba(111, 227, 255, 0.28);
+  color: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* dimension-line divider between sections */
+.cutline {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(111, 227, 255, 0.45) 12%,
+    rgba(111, 227, 255, 0.45) 88%,
+    transparent
+  );
+}
+.cutline::before,
+.cutline::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--color-cyan);
+  transform: translateY(-50%) rotate(45deg);
+  background: var(--color-navy-950);
+}
+.cutline::before {
+  left: 12%;
+}
+.cutline::after {
+  right: 12%;
+}
+
+/* faint drifting nodes in background */
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(14px, -22px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 44px, 0);
+  }
+}
+.grid-drift {
+  animation: grid-drift 90s linear infinite;
+}
+@keyframes grid-drift-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-44px, 0, 0);
+  }
+}
+.grid-drift-x {
+  animation: grid-drift-x 120s linear infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-amber);
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.cursor-blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+.scan-bar {
+  animation: scan 1.1s ease-in-out infinite;
+}
+
+@keyframes trace-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+.trace-flow {
+  animation: trace-flow 1.1s linear infinite;
+}
+
+/* ---------- print: resume drawing sheet ---------- */
+@media print {
+  body {
+    background: #fff !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  .sheet-print,
+  .sheet-print * {
+    visibility: visible;
+  }
+  .sheet-print {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* subtle grain so flat navy never feels empty */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
