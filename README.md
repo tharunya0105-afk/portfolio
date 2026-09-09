@@ -26,3 +26,7 @@ npm run build    # typecheck + production build to dist/
 ## Related project
 
 [Prism](https://github.com/tharunya0105-afk/prism) — the AI privacy layer (SDK + Chrome extension) featured in the Projects section.
+
+## Deployment
+
+Production deploys automatically to **Vercel** on every push to `main` (Git integration). `.github/workflows/ci.yml` runs typecheck + build as CI — it's also the branch-protection required check for PRs. (GitHub Pages was retired as a production target; the old `github.io` URL no longer serves this site.)
